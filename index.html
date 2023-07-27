@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Simple Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #040307;
+    }
+
+    #calculator {
+      width: 200px;
+      margin: 0 auto 0; 
+      padding: 20px;
+      background-color: #41436a;
+      border-radius: 20px;
+    }
+
+    #result {
+      width: auto;
+      padding: 20px;
+      height: 25px;
+      margin-bottom: 10px;
+      font-size: 20px;
+      background-color: #974063;
+      border-radius: 5px;
+      color: whitesmoke;
+    }
+
+    button {
+      width: 50px;
+      height: 50px;
+      font-size: 16px;
+      margin: 5px;
+      border: none;
+      background-color: #F54768;
+      cursor: pointer;
+      border-radius: 5px;
+      text-align: center;
+      color: white;
+    }
+
+    button:hover {
+      background-color: #974063;
+    }
+
+    .center {
+      text-align: center;
+    }
+    .CalculationButtons {
+      text-align: center;
+    }
+    .CalculationButtons button {
+      background-color: #FF9677;
+    }
+    .CalculationButtons button:hover {
+      background-color: WhiteSmoke;
+      color: #F54768;
+    }
+    #total {
+      background-color: #2d8d79;
+    }
+
+    #total:hover {
+      background-color: #87c156;
+      color: #2d8d79;
+    }
+
+    #clear {
+      background-color: #21aee4;
+    }
+
+    #clear:hover {
+      background-color: #88ddf0;
+      color: #21aee4;
+    }
+
+  </style>
+</head>
+
+<body>
+  <div id="calculator">
+    <div id="result"></div>
+    <div class="center">
+      <button onclick="handleNumber(1)">1</button>
+      <button onclick="handleNumber(2)">2</button>
+      <button onclick="handleNumber(3)">3</button>
+      <button onclick="handleNumber(4)">4</button>
+      <button onclick="handleNumber(5)">5</button>
+      <button onclick="handleNumber(6)">6</button>
+      <button onclick="handleNumber(7)">7</button>
+      <button onclick="handleNumber(8)">8</button>
+      <button onclick="handleNumber(9)">9</button>
+    </div>
+    <div class="center">
+      <button onclick="handleNumber(0)">0</button>
+    </div>
+    <div class="CalculationButtons">
+      <button onclick="handleOperation('+')">+</button>
+      <button onclick="handleOperation('-')">-</button>
+      <button onclick="handleOperation('*')">*</button>
+      <button onclick="handleOperation('/')">/</button>
+      <button id="total" onclick="calculateResult()">=</button>
+      <button id="clear" onclick="clearResult()">Clear</button>
+    </div>
+  </div>
+  </div>
+
+  <script>
+    const resultDisplay = document.getElementById("result");
+
+    let currentResult = "";
+    let currentOperation = "";
+
+    function updateResultDisplay() {
+      resultDisplay.textContent = currentResult;
+    }
+
+    function handleNumber(number) {
+      currentResult += number;
+      updateResultDisplay();
+    }
+
+    function handleOperation(operation) {
+      currentOperation = operation;
+      currentResult += ` ${operation} `;
+      updateResultDisplay();
+    }
+
+    function calculateResult() {
+      const parts = currentResult.split(" ");
+
+      if (parts.length === 3) {
+        const num1 = parseFloat(parts[0]);
+        const num2 = parseFloat(parts[2]);
+        const operation = parts[1];
+
+        switch (operation) {
+          case "+":
+            currentResult = num1 + num2;
+            break;
+          case "-":
+            currentResult = num1 - num2;
+            break;
+          case "*":
+            currentResult = num1 * num2;
+            break;
+          case "/":
+            currentResult = num1 / num2;
+            break;
+          default:
+            currentResult = "Error";
+        }
+      } else {
+        currentResult = "Error";
+      }
+
+      updateResultDisplay();
+    }
+
+    function clearResult() {
+      currentResult = "";
+      currentOperation = "";
+      updateResultDisplay();
+    }
+  </script>
+</body>
+
+</html>
